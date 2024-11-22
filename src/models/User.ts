@@ -18,6 +18,7 @@ const messageSchema: Schema<Message> = new Schema({
 });
 
 
+
 export interface User extends Document{
     username:string;
     email:string;
@@ -28,7 +29,6 @@ export interface User extends Document{
     isAcceptingMessage:boolean;
     messages: Message[];
 }
-
 const userSchema: Schema<User> = new Schema({
     username:{
         type:String,
@@ -68,3 +68,5 @@ const userSchema: Schema<User> = new Schema({
 
 const UserModel = (mongoose.models.User as mongoose.
     Model<User>) || (mongoose.model<User>("User",userSchema)) // when first time schema created
+
+export default UserModel;
