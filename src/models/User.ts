@@ -1,6 +1,7 @@
 import mongoose,{ Schema, Document } from "mongoose";
 
 
+// Message structure and schema
 export interface Message extends Document {  // my interface name is message
   content: string;
   createdAt: Date;
@@ -19,13 +20,14 @@ const messageSchema: Schema<Message> = new Schema({
 
 
 
+// User structure and schema
 export interface User extends Document{
     username:string;
     email:string;
     password:string;
     verifyCode:string;
     verifyCodeExpiry:Date;
-    isVerifyField:boolean;
+    isVerified:boolean;
     isAcceptingMessage:boolean;
     messages: Message[];
 }
@@ -55,7 +57,7 @@ const userSchema: Schema<User> = new Schema({
         type:Date,
         required:[true,"verifyCodeExpiry is required"],
     },
-    isVerifyField:{
+    isVerified:{
         type:Boolean,
         default:false
     },
@@ -66,6 +68,7 @@ const userSchema: Schema<User> = new Schema({
     messages: [messageSchema]
 })
 
+// First: if already existing , Second: if firsttime created
 const UserModel = (mongoose.models.User as mongoose.
     Model<User>) || (mongoose.model<User>("User",userSchema)) // when first time schema created
 
